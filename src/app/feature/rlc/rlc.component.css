@@ -1,0 +1,42 @@
+.mdl-layout__header{
+    background-color: rebeccapurple
+}
+
+.mdl-layout__tab-bar-container .mdl-layout__tab-bar{
+    background-color: rgb(189,189,189);
+}
+
+.mdl-layout__header-row
+{
+    padding: 0 16px 0 52px
+}
+.listlol{
+    overflow: scroll;
+    height: 100px;
+}
+
+.responsestyle{
+    text-align: end;
+    float: right;
+    background-color:lightgray;
+}
+.speech{
+    overflow: scroll;
+}
+.fabbutton{
+
+    top:auto;
+    right: 10px;
+    bottom: 10px;
+    left: auto;
+    position: absolute;
+    z-index: 20;
+    line-height: 56px;
+    min-width: 0;
+    width: 56px;
+    height: 56px;
+    vertical-align: middle;
+    border-radius: 50%;
+    background-clip: padding-box;
+    overflow: hidden;
+}

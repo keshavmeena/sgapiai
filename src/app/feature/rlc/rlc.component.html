@@ -1,0 +1,62 @@
+<mdl-layout mdl-layout-fixed-header mdl-layout-header-seamed mdl-layout-mode="waterfall">
+  <mdl-layout-header>
+    <mdl-layout-header-row>
+      <mdl-layout-title>{{title}}</mdl-layout-title>
+     <mdl-layout-spacer></mdl-layout-spacer>
+                       <mdl-icon>home</mdl-icon>
+    </mdl-layout-header-row>
+  </mdl-layout-header>
+  <mdl-layout-drawer>
+    <mdl-layout-title style="background-color:brown; color:aliceblue">Tomtra</mdl-layout-title>
+    <nav class="mdl-navigation">
+      <a routerLink="" class="mdl-navigation__link"><mdl-icon style="padding-right:10px">account_balance</mdl-icon>Risk legal counterpart</a>
+      <a class="mdl-navigation__link"><mdl-icon style="padding-right:10px">euro_symbol</mdl-icon>Transactions</a>
+      <a class="mdl-navigation__link"><mdl-icon style="padding-right:10px">contact_mail</mdl-icon>Contact us</a>
+      <a class="mdl-navigation__link"><mdl-icon style="padding-right:10px">feedback</mdl-icon>Feeback</a>
+      <a class="mdl-navigation__link"><mdl-icon style="padding-right:10px">help</mdl-icon>Help</a>
+    </nav>
+  </mdl-layout-drawer>
+  <mdl-layout-content class="demo-content" >
+    
+ <mdl-layout-tab-panel mdl-layout-tab-panel-title="Recent" >
+						<mdl-list *ngFor="let r of rlcObject; let i=index">
+              <mdl-list-item lines="2" (click)="setRlc(r)" 
+                          ng-mouseover="hoverActive=true"
+                          ng-mouseleave="hoverActive=false"
+                          ng-style="hoverActive ? {'background-color':red} : {}"
+            >
+                <mdl-list-item-primary-content >
+                  <mdl-icon mdl-list-item-avatar>account_balance</mdl-icon>
+                  <span>{{r.Name}}</span>
+                  <mdl-list-item-sub-title>Rating {{r.Rating}}</mdl-list-item-sub-title>
+                  <mdl-list-item-sub-title>{{r.Country}}</mdl-list-item-sub-title>
+                </mdl-list-item-primary-content>
+              </mdl-list-item>
+            </mdl-list>
+         </mdl-layout-tab-panel>
+         
+        <router-outlet></router-outlet>
+  </mdl-layout-content>
+
+</mdl-layout>
+<div class="fabbutton">
+<button mdl-button mdl-button-type="fab" mdl-colored="accent" #editUserButton mdl-ripple (click)="chatDialog.toggle($event)">
+    <mdl-icon>mic</mdl-icon>
+  </button>
+    </div>
+<!--
+<mdl-dialog #editUserDialog
+            [mdl-dialog-config]="{
+              clickOutsideToClose: true,
+              styles:{'width': '500px', 'height': '500px'},
+              isModal:true,
+              openFrom: editUserButton,
+              enterTransitionDuration: 400,
+              leaveTransitionDuration: 400}"
+            (show)="onDialogShow()"
+            (hide)="onDialogHide()">
+</mdl-dialog>-->
+
+<mdl-popover #chatDialog>
+  <app-chat-window></app-chat-window>
+</mdl-popover>

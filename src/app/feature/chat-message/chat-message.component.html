@@ -1,0 +1,19 @@
+<div class="msg-container"
+     [ngClass]="{'base-sent': !message.LineItemType, 'base-receive': message.LineItemType}">
+
+<div class="avatar"
+       *ngIf="!message.LineItemType">
+    <img src="">
+  </div>
+
+  <div class="messages"
+    [ngClass]="{'msg-sent': !message.LineItemType, 'msg-receive': message.LineItemType}">
+    <p>{{message.LineItem}}</p>
+    <!--<p class="time">{{message.sender}} • {{message.sentAt | fromNow}}</p>-->
+  </div>
+
+  <div class="avatar"
+       *ngIf="message.LineItemType">
+    <img src="">
+  </div>
+</div>

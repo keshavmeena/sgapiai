@@ -1,0 +1,13 @@
+chart {
+    width: 100% !important;
+    margin: 0 auto;
+    display: block;
+}
+
+.mdl-layout__header{
+    background-color: rebeccapurple
+}
+
+.mdl-layout__tab-bar-container .mdl-layout__tab-bar{
+    background-color: rgb(189,189,189);
+}

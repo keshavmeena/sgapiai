@@ -1,0 +1,36 @@
+<mdl-layout mdl-layout-fixed-header mdl-layout-header-seamed mdl-layout-mode="waterfall">
+  <mdl-layout-header>
+    <mdl-layout-header-row>
+      <mdl-layout-title>Line situation of {{title}}</mdl-layout-title>
+      <mdl-layout-spacer></mdl-layout-spacer>
+      <a routerLink="" class="mdl-navigation__link"> <mdl-icon>home</mdl-icon></a>
+
+    </mdl-layout-header-row>
+  </mdl-layout-header>
+  <mdl-layout-drawer>
+    <mdl-layout-title style="background-color:brown; color:aliceblue">Tomtra</mdl-layout-title>
+    <nav class="mdl-navigation">
+      <a routerLink="" class="mdl-navigation__link"><mdl-icon style="padding-right:10px">account_balance</mdl-icon>Risk legal counterpart</a>
+      <a class="mdl-navigation__link"><mdl-icon style="padding-right:10px">euro_symbol</mdl-icon>Transactions</a>
+      <a class="mdl-navigation__link"><mdl-icon style="padding-right:10px">contact_mail</mdl-icon>Contact us</a>
+      <a class="mdl-navigation__link"><mdl-icon style="padding-right:10px">feedback</mdl-icon>Feeback</a>
+      <a class="mdl-navigation__link"><mdl-icon style="padding-right:10px">help</mdl-icon>Help</a>
+    </nav>
+  </mdl-layout-drawer>
+  <mdl-layout-content class="demo-content">
+        <mdl-layout-tab-panel mdl-layout-tab-panel-title="TRC">
+          <div style="width:100%;  position: absolute; bottom: 0px; ">
+              <chart [options]="optionsTrc"></chart>
+          </div>
+         </mdl-layout-tab-panel>
+         <mdl-layout-tab-panel mdl-layout-tab-panel-title="Total Group">
+          <div style="width:100%;  position: absolute; bottom: 0px; ">
+            <chart [options]="optionsTotalGroup"></chart>
+          </div>
+         </mdl-layout-tab-panel>
+         <mdl-layout-tab-panel mdl-layout-tab-panel-title="Transactions">
+            	
+         </mdl-layout-tab-panel>
+        <router-outlet></router-outlet>
+  </mdl-layout-content>
+</mdl-layout>

@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Tomtra</title>
+  <base href="/">
+
+  <meta name="viewport" content="width=device-width, user-scalable=no" />
+    <link rel="manifest" href="manifest.json" />
+
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      
+  <script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./service-worker.js').then(function(registration) {
+      console.log('Service Worker registered');
+    }).catch(function(err) {
+      console.log('Service Worker registration failed: ', err);
+    });
+    
+  }
+</script>
+</head>
+<body>
+  <app-root>Loading...</app-root>
+  <router-outlet></router-outlet>
+  <dialog-outlet></dialog-outlet>
+</body>
+
+<script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAZOVjGqzfvCE8esxSm4q_AyN9pBTTShi8",
+    authDomain: "tomtrapwa.firebaseapp.com",
+    databaseURL: "https://tomtrapwa.firebaseio.com",
+    projectId: "tomtrapwa",
+    storageBucket: "tomtrapwa.appspot.com",
+    messagingSenderId: "68235720583"
+  };
+  firebase.initializeApp(config);
+</script>
+</html>

@@ -1,0 +1,46 @@
+<div class="chat-window-container">
+  <div class="chat-window">
+    <div class="panel-container">
+      <div class="panel panel-default">
+
+        <div class="panel-heading top-bar">
+          <div class="panel-title-container">
+            <h3 class="panel-title">
+                 <mdl-icon>chat</mdl-icon>
+
+              Chat 
+            </h3>
+          </div>
+          <div class="panel-buttons-container"  >
+            <!-- you could put minimize or close buttons here -->
+          </div>
+        </div>
+
+        <div class="panel-body msg-container-base">
+          <app-chat-message 
+           *ngFor="let message of chatlist"
+               [message]="message">
+               ></app-chat-message>
+          
+        </div>
+
+        <div class="panel-footer">
+          <div class="input-group">
+            <input type="text"  [(ngModel)]="enteredtext"
+                   class="chat-input"
+                   placeholder="Write your message here..."
+                  required minlength="4"
+
+                   />
+            <span class="input-group-btn">
+              <button class="btn-chat"
+                (click)="sendChat()"  
+                 >Send</button>
+            </span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
