@@ -12,8 +12,10 @@ const client = new ApiAiClient({ accessToken: '8c071a8d7aa74f11995635ad901b4bfa'
 @Component({
   selector: 'app-chat-window',
   templateUrl: './chat-window.component.html',
+  styleUrls:['./chat-window.component.css']
 })
 export class ChatWindowComponent implements OnInit {
+  buttonType: string = "mic";
   rlcObject: any;
   router: any;
   bank_name: any;
@@ -49,12 +51,14 @@ export class ChatWindowComponent implements OnInit {
     client.textRequest(msg)
       .then((res) => {/* do something */
        this.apiResult = res;
+       console.log(res);
        this.response=this.apiResult.result.fulfillment.speech;
        this.chatlist.push(new chat(this.response, true));
       if(!this.apiResult.result.actionIncomplete)
        {
         var data: IBroadcastEvent = { action : this.apiResult.result.action, parameters : this.apiResult.result.parameters};
         //Broadcast the action and the paramters
+        console.log(this.apiResult.result.parameters);
         this.apiEvent.fire(data);
        }
     })

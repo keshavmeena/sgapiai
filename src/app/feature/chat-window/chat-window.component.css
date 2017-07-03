@@ -1,0 +1,17 @@
+.fabbutton{
+
+    top:auto;
+    right: 10px;
+    bottom: 10px;
+    left: auto;
+    position: absolute;
+    z-index: 20;
+    line-height: 26px;
+    min-width: 0;
+    width: 26px;
+    height: 26px;
+    vertical-align: middle;
+    border-radius: 50%;
+    background-clip: padding-box;
+    overflow: hidden;
+}

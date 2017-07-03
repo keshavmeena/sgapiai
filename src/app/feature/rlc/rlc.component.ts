@@ -12,6 +12,7 @@ import { ApiEvent } from "app/feature/events/ApiEvent";
   styleUrls: ['./rlc.component.css']
 })
 export class RlcComponent implements OnInit, OnDestroy {
+  rlcObject1: any;
 
   public rlcObject: any;
   
@@ -38,6 +39,22 @@ export class RlcComponent implements OnInit, OnDestroy {
 
   rlcFilter(parameters: any){
 
+  if(parameters.Legal  && parameters.country ){
+    this.rlcObject1 = this.rlcObject.filter(x => x.Country.toLowerCase().includes(parameters.country.toLowerCase()) && x.Name.toLowerCase().includes(parameters.Legal.toLowerCase()));
+  }
+  else{
+        if(parameters.Legal ){
+            this.rlcObject1 = this.rlcObject.filter(x => x.Name.toLowerCase().includes(parameters.Legal.toLowerCase()));
+            console.log(parameters.Legal);
+       }
+        else{
+              this.rlcObject1 = this.rlcObject.filter(x => x.Country.toLowerCase().includes(parameters.country.toLowerCase()));
+        }
+  }
+  if(this.rlcObject1.length!== 0){
+    this.rlcObject=this.rlcObject1;
+  }
+  console.log(this.rlcObject1);
   }
 
   ngOnInit(): void {
@@ -48,8 +65,15 @@ export class RlcComponent implements OnInit, OnDestroy {
           this.gotoLineSituation(message.parameters)
           break;
         case "FilterRLC": 
+           let rlcmodel = new rlcModel();
+          this.rlcObject = rlcmodel.rlcObject;
           this.rlcFilter(message.parameters);
           break;
+        case "Nofilter": 
+        let rlcmodel1 = new rlcModel();
+        this.rlcObject = rlcmodel1.rlcObject;
+         break;
+
       }
     });
   }
