@@ -51,7 +51,7 @@ export function highchartsFactory() {
       useFactory: highchartsFactory
     }, DataService,SpeechRecognitionService,
     Broadcaster,
-    ApiEvent
+    ApiEvent,
     ],
   bootstrap: [AppComponent]
 })

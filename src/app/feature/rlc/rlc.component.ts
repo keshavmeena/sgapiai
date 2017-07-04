@@ -13,7 +13,8 @@ import { ApiEvent } from "app/feature/events/ApiEvent";
 })
 export class RlcComponent implements OnInit, OnDestroy {
   rlcObject1: any;
-
+  text:any="sorry, check you spell right";
+  public chatlist: Array<chat> = [];
   public rlcObject: any;
   
   lol:boolean=false;
@@ -33,11 +34,14 @@ export class RlcComponent implements OnInit, OnDestroy {
 
   gotoLineSituation(parameters :any){
     let parameter = parameters.Bank;
-    var rlc = this.rlcObject.filter(x => x.Name.toLowerCase() == parameter.toLowerCase());
-    this.setRlc(rlc[0]);
+    var rlc = this.rlcObject.filter(x => x.Name.toLowerCase().includes(parameter.toLowerCase()) );
+    console.log(rlc);
+    if(rlc.length !== 0){
+    this.setRlc(rlc[0]);}
   } 
 
   rlcFilter(parameters: any){
+    this.chatlist.push(new chat(this.text, false));
 
   if(parameters.Legal  && parameters.country ){
     this.rlcObject1 = this.rlcObject.filter(x => x.Country.toLowerCase().includes(parameters.country.toLowerCase()) && x.Name.toLowerCase().includes(parameters.Legal.toLowerCase()));
@@ -53,6 +57,9 @@ export class RlcComponent implements OnInit, OnDestroy {
   }
   if(this.rlcObject1.length!== 0){
     this.rlcObject=this.rlcObject1;
+  }
+  else{
+    
   }
   console.log(this.rlcObject1);
   }

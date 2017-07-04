@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { chat } from "app/shared/chat";
-import {ApiAiClient} from "api-ai-javascript/ApiAiClient"
+import {ApiAiClient} from "api-ai-javascript"
 import {ApiAiStreamClient} from "api-ai-javascript/ApiAiStreamClient";
 import { SpeechRecognitionService } from 'app/feature/speech-recognition.service';
 import { DataService } from "app/feature/dataservice";
@@ -74,6 +74,9 @@ export class ChatWindowComponent implements OnInit {
             //listener
             (value) => {
                 this.speechData = value;
+                this.enteredtext=this.speechData;
+                this.chatlist.push(new chat(this.enteredtext, false));
+                this.sendRequest(this.enteredtext);
                 console.log(value);
             },
             //errror
@@ -88,7 +91,7 @@ export class ChatWindowComponent implements OnInit {
             () => {
                 this.showSearchButton = true;
                 console.log("--complete--");
-                this.activateSpeechSearchMovie();
+               
             });
   }
 }
