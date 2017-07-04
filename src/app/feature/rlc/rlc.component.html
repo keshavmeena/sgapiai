@@ -39,24 +39,3 @@
   </mdl-layout-content>
 
 </mdl-layout>
-<div class="fabbutton">
-<button mdl-button mdl-button-type="fab" mdl-colored="accent" #editUserButton mdl-ripple (click)="chatDialog.toggle($event)">
-    <mdl-icon>mic</mdl-icon>
-  </button>
-    </div>
-<!--
-<mdl-dialog #editUserDialog
-            [mdl-dialog-config]="{
-              clickOutsideToClose: true,
-              styles:{'width': '500px', 'height': '500px'},
-              isModal:true,
-              openFrom: editUserButton,
-              enterTransitionDuration: 400,
-              leaveTransitionDuration: 400}"
-            (show)="onDialogShow()"
-            (hide)="onDialogHide()">
-</mdl-dialog>-->
-
-<mdl-popover #chatDialog>
-  <app-chat-window></app-chat-window>
-</mdl-popover>

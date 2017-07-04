@@ -26,7 +26,7 @@
 
         <div class="panel-footer">
           <div class="input-group">
-            <input autofocus type="text"  [(ngModel)]="enteredtext"
+            <input autofocus type="text"  [(ngModel)]="enteredtext" (ngModelChange)="onChange()" (keyup.enter)="onEnter()"
                    class="chat-input"
                    placeholder="Write your message here..."
                   required minlength="4"
@@ -34,17 +34,16 @@
                    />
             <span class="input-group-btn">
 
-                      <span class="input-group-btn1">
-              
-              <button class="but" mdl-button mdl-button-type="mini-fab" (click)="activateSpeechSearchMovie()" >
-              <mdl-icon >mic</mdl-icon>
-               </button>
+              <span class="input-group-btn">
+                <button class="but" mdl-button mdl-button-type="mini-fab" (click)="activateSpeechSearchMovie()" >
+                <mdl-icon>{{buttonType}}</mdl-icon>
+                </button>
             </span>
 
 
-              <button class="btn-chat"
+              <!--<button class="btn-chat"
                 (click)="sendChat()"  
-                 >Send</button>
+                 >Send</button>-->
             </span>
           </div>
         </div>

@@ -1,13 +1,12 @@
 import { Component, OnInit, Input, ElementRef, ViewChild, AfterViewChecked } from '@angular/core';
 import { chat } from "app/shared/chat";
 import {ApiAiClient} from "api-ai-javascript"
-import {ApiAiStreamClient} from "api-ai-javascript/ApiAiStreamClient";
 import { SpeechRecognitionService } from 'app/feature/speech-recognition.service';
 import { DataService } from "app/feature/dataservice";
 import { Router } from "@angular/router";
 import { rlcModel } from "app/shared/rlc.contract";
 import { ApiEvent } from "app/feature/events/ApiEvent";
-const client = new ApiAiClient({ accessToken: '8c071a8d7aa74f11995635ad901b4bfa', streamClientClass: ApiAiStreamClient });
+const client = new ApiAiClient({ accessToken: '8c071a8d7aa74f11995635ad901b4bfa' });
 
 @Component({
   selector: 'app-chat-window',
@@ -29,7 +28,7 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
 
   public chatlist: Array<chat> = [];
 
-  @ViewChild('scrollMe') private myScrollContainer: ElementRef
+  @ViewChild('scrollMe') public myScrollContainer: ElementRef
 
   constructor(private speechRecognitionService: SpeechRecognitionService, 
               r: Router, public dataService: DataService,
@@ -111,5 +110,14 @@ ngAfterViewChecked(): void {
                 console.log("--complete--");
                
             });
+  }
+
+  onChange(){
+    this.buttonType = "send"
+    if(!this.enteredtext)
+    this.buttonType = "mic"
+  }
+  onEnter(){
+    this.sendChat();
   }
 }

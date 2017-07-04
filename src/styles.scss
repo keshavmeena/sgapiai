@@ -3585,7 +3585,8 @@ tbody.collapse.in {
 .input-group-btn {
   width: 1%;
   white-space: nowrap;
-  vertical-align: middle; }
+  vertical-align: middle;
+  padding-left: 4px }
 
 .input-group-addon {
   padding: 6px 12px;
@@ -6095,3 +6096,21 @@ button.close {
 
 .navbar-text {
   padding-right: 110px; }
+
+.fabbutton{
+
+    top:auto;
+    right: 10px;
+    bottom: 10px;
+    left: auto;
+    position: absolute;
+    z-index: 20;
+    line-height: 56px;
+    min-width: 0;
+    width: 56px;
+    height: 56px;
+    vertical-align: middle;
+    border-radius: 50%;
+    background-clip: padding-box;
+    overflow: hidden;
+}

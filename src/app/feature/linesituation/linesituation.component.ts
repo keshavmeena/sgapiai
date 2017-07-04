@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from "app/feature/dataservice";
+import { ApiEvent } from "app/feature/events/ApiEvent";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-linesituation',
@@ -11,7 +13,10 @@ export class LinesituationComponent implements OnInit {
     optionsTrc: Object;
     optionsTotalGroup: Object;
     title:any;
-  constructor(public dataService:DataService) { 
+    private router: Router;
+
+  constructor(public dataService:DataService, private apiEvent: ApiEvent, r: Router) { 
+      this.router = r;
     let rlc = dataService.GetCounterPart();
     this.title = rlc.Name;
     this.optionsTrc ={
@@ -80,7 +85,7 @@ export class LinesituationComponent implements OnInit {
       enabled: false
   },
     title: {
-        text: '',
+        text: rlc.Name,
         margin:10,
         style:{
             fontSize: "12px"
@@ -88,9 +93,9 @@ export class LinesituationComponent implements OnInit {
     },
     xAxis: {
         categories: [
-            'Unspecific',
-            'LG',
-            'LC'
+            'Total',
+            'Country',
+            'Group'
         ]
     },
     yAxis: [{
@@ -132,6 +137,14 @@ export class LinesituationComponent implements OnInit {
   }
 
   ngOnInit() {
+      this.apiEvent.on()
+      .subscribe(message => {
+        switch(message.action){
+        case "Home" :
+                this.router.navigate(['/']); 
+          break;
+      }
+    });
   }
 
 }
