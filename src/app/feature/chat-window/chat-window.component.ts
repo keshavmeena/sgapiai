@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, ViewChild, AfterViewChecked } from '@angular/core';
 import { chat } from "app/shared/chat";
 import {ApiAiClient} from "api-ai-javascript"
 import {ApiAiStreamClient} from "api-ai-javascript/ApiAiStreamClient";
@@ -14,7 +14,8 @@ const client = new ApiAiClient({ accessToken: '8c071a8d7aa74f11995635ad901b4bfa'
   templateUrl: './chat-window.component.html',
   styleUrls:['./chat-window.component.css']
 })
-export class ChatWindowComponent implements OnInit {
+export class ChatWindowComponent implements OnInit, AfterViewChecked {
+  
   buttonType: string = "mic";
   rlcObject: any;
   router: any;
@@ -28,6 +29,8 @@ export class ChatWindowComponent implements OnInit {
 
   public chatlist: Array<chat> = [];
 
+  @ViewChild('scrollMe') private myScrollContainer: ElementRef
+
   constructor(private speechRecognitionService: SpeechRecognitionService, 
               r: Router, public dataService: DataService,
               private apiEvent: ApiEvent,
@@ -39,11 +42,14 @@ export class ChatWindowComponent implements OnInit {
   ngOnInit() {
     let rlcmodel = new rlcModel();
     this.rlcObject = rlcmodel.rlcObject;
+      //this.updateScroll()
   }
 
   sendChat(){
     this.chatlist.push(new chat(this.enteredtext, false));
+    
     this.sendRequest(this.enteredtext);
+     //this.updateScroll();
     this.enteredtext=null;
   }
 
@@ -54,16 +60,28 @@ export class ChatWindowComponent implements OnInit {
        console.log(res);
        this.response=this.apiResult.result.fulfillment.speech;
        this.chatlist.push(new chat(this.response, true));
+       
       if(!this.apiResult.result.actionIncomplete)
        {
         var data: IBroadcastEvent = { action : this.apiResult.result.action, parameters : this.apiResult.result.parameters};
         //Broadcast the action and the paramters
         console.log(this.apiResult.result.parameters);
         this.apiEvent.fire(data);
+
        }
+     // this.updateScroll();
     })
     .catch((error) => {/* do something here too */})
   }
+  
+  updateScroll():void{
+  this.myScrollContainer.nativeElement.scrollTop =  this.myScrollContainer.nativeElement.scrollHeight;
+}
+
+ngAfterViewChecked(): void {
+  console.log('scroll');
+  this.updateScroll()
+}
   
 
   activateSpeechSearchMovie(): void {

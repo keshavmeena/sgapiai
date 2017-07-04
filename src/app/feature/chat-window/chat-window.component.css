@@ -22,3 +22,6 @@
     height: 30px;
     width: 5px;
 }
+.scrol{
+    overflow: auto;
+}

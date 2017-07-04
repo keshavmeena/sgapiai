@@ -16,7 +16,7 @@
           </div>
         </div>
 
-        <div class="panel-body msg-container-base">
+        <div #scrollMe class="panel-body msg-container-base">
           <app-chat-message 
            *ngFor="let message of chatlist"
                [message]="message">

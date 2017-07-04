@@ -19,7 +19,7 @@ export class SpeechRecognitionService {
         return Observable.create(observer => {
             const { webkitSpeechRecognition }: IWindow = <IWindow>window;
             this.speechRecognition = new webkitSpeechRecognition();
-            this.speechRecognition.continuous = true;
+            this.speechRecognition.continuous = false;
             //this.speechRecognition.interimResults = true;
             this.speechRecognition.lang = 'en-us';
             this.speechRecognition.maxAlternatives = 1;
