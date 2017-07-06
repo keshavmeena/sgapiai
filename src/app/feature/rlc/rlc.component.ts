@@ -5,6 +5,7 @@ import { DataService } from "app/feature/dataservice";
 import { chat } from "app/shared/chat";
 import { rlcModel } from "app/shared/rlc.contract";
 import { ApiEvent } from "app/feature/events/ApiEvent";
+import { ChatEvent } from "app/feature/chatevent";
 
 @Component({
   selector: 'app-rlc',
@@ -13,6 +14,7 @@ import { ApiEvent } from "app/feature/events/ApiEvent";
 })
 export class RlcComponent implements OnInit, OnDestroy {
   rlcObject1: any;
+
   text:any="sorry, check you spell right";
   public chatlist: Array<chat> = [];
   public rlcObject: any;
@@ -21,7 +23,7 @@ export class RlcComponent implements OnInit, OnDestroy {
   title = 'Risk legal counterpart';
   private router: Router;
   
-  constructor(r: Router, public dataService: DataService,private apiEvent: ApiEvent){
+  constructor(r: Router, public dataService: DataService,private apiEvent: ApiEvent,private chatevent: ChatEvent){
     this.router = r;
     let rlcmodel = new rlcModel();
     this.rlcObject = rlcmodel.rlcObject;
@@ -37,8 +39,12 @@ export class RlcComponent implements OnInit, OnDestroy {
     var rlc = this.rlcObject.filter(x => x.Name.toLowerCase().includes(parameter.toLowerCase()) );
     console.log(rlc);
     if(rlc.length !== 0){
-    this.setRlc(rlc[0]);}
+    this.setRlc(rlc[0]);
   } 
+  else{
+    this.chatevent.fire(this.text);
+  }
+}
 
   rlcFilter(parameters: any){
     this.chatlist.push(new chat(this.text, false));
@@ -59,7 +65,7 @@ export class RlcComponent implements OnInit, OnDestroy {
     this.rlcObject=this.rlcObject1;
   }
   else{
-    
+    this.chatevent.fire(this.text);
   }
   console.log(this.rlcObject1);
   }
@@ -69,12 +75,17 @@ export class RlcComponent implements OnInit, OnDestroy {
       .subscribe(message => {
         switch(message.action){
         case "Linesituation" :
-          this.gotoLineSituation(message.parameters)
+          this.gotoLineSituation(message.parameters.parameters);
           break;
+          case "Linesituationdirect": 
+          console.log(message.parameters.contexts[0].parameters);
+            this.gotoLineSituation(message.parameters.contexts[0].parameters);
+            
+            break;
         case "FilterRLC": 
            let rlcmodel = new rlcModel();
           this.rlcObject = rlcmodel.rlcObject;
-          this.rlcFilter(message.parameters);
+          this.rlcFilter(message.parameters.parameters);
           break;
         case "Nofilter": 
         let rlcmodel1 = new rlcModel();

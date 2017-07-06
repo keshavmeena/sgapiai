@@ -20,6 +20,7 @@ import { ChatMessageComponent } from './feature/chat-message/chat-message.compon
 import { ChatWindowComponent } from './feature/chat-window/chat-window.component';
 import { Broadcaster } from "app/feature/broadcaster/broadcaster";
 import { ApiEvent } from "app/feature/events/ApiEvent";
+import { ChatEvent } from "app/feature/chatevent";
 
 
 export function highchartsFactory() {
@@ -52,6 +53,7 @@ export function highchartsFactory() {
     }, DataService,SpeechRecognitionService,
     Broadcaster,
     ApiEvent,
+    ChatEvent
     ],
   bootstrap: [AppComponent]
 })

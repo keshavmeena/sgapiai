@@ -6,6 +6,7 @@ import { DataService } from "app/feature/dataservice";
 import { Router } from "@angular/router";
 import { rlcModel } from "app/shared/rlc.contract";
 import { ApiEvent } from "app/feature/events/ApiEvent";
+import { ChatEvent } from "app/feature/chatevent";
 const client = new ApiAiClient({ accessToken: '8c071a8d7aa74f11995635ad901b4bfa' });
 
 @Component({
@@ -14,7 +15,8 @@ const client = new ApiAiClient({ accessToken: '8c071a8d7aa74f11995635ad901b4bfa'
   styleUrls:['./chat-window.component.css']
 })
 export class ChatWindowComponent implements OnInit, AfterViewChecked {
-  
+  butt: boolean;
+
   buttonType: string = "mic";
   rlcObject: any;
   router: any;
@@ -33,6 +35,7 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
   constructor(private speechRecognitionService: SpeechRecognitionService, 
               r: Router, public dataService: DataService,
               private apiEvent: ApiEvent,
+              private chatevent:ChatEvent 
               ) 
   {
         this.router = r;
@@ -42,6 +45,12 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
     let rlcmodel = new rlcModel();
     this.rlcObject = rlcmodel.rlcObject;
       //this.updateScroll()
+    this.chatevent.on()
+      .subscribe(message => {
+       let c =  new chat(message, true)
+      this.chatlist.push(c);
+      
+    });
   }
 
   sendChat(){
@@ -50,6 +59,9 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
     this.sendRequest(this.enteredtext);
      //this.updateScroll();
     this.enteredtext=null;
+  }
+  reply_click(clicked_id){
+    this.butt=true;
   }
 
   public sendRequest(msg){
@@ -62,9 +74,9 @@ export class ChatWindowComponent implements OnInit, AfterViewChecked {
        
       if(!this.apiResult.result.actionIncomplete)
        {
-        var data: IBroadcastEvent = { action : this.apiResult.result.action, parameters : this.apiResult.result.parameters};
+        var data: IBroadcastEvent = { action : this.apiResult.result.action, parameters : this.apiResult.result};
         //Broadcast the action and the paramters
-        console.log(this.apiResult.result.parameters);
+        console.log(this.apiResult.result.action);
         this.apiEvent.fire(data);
 
        }
@@ -83,7 +95,12 @@ ngAfterViewChecked(): void {
 }
   
 
-  activateSpeechSearchMovie(): void {
+  activateSpeachText(): void {
+         if(this.enteredtext)
+         {
+           this.sendChat();
+          return;
+ }
         this.showSearchButton = false;
 
         this.speechRecognitionService.record()
@@ -101,7 +118,7 @@ ngAfterViewChecked(): void {
                 console.log(err);
                 if (err.error == "no-speech") {
                     console.log("--restatring service--");
-                    this.activateSpeechSearchMovie();
+                    this.activateSpeachText();
                 }
             },
             //completion
