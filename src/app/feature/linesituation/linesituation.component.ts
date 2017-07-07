@@ -21,6 +21,7 @@ export class LinesituationComponent implements OnInit {
     this.title = rlc.Name;
     this.optionsTrc ={
     chart: {
+        renderTo: 'chart1',
         type: 'column',
       },
        credits: {
@@ -30,7 +31,7 @@ export class LinesituationComponent implements OnInit {
         text: rlc.Name,
         margin:10,
         style:{
-            fontSize: "12px"
+            fontSize: "16px"
         }
     },
     xAxis: {
@@ -49,6 +50,7 @@ export class LinesituationComponent implements OnInit {
     legend: {
         shadow: false,
         verticalAlign : 'top',
+        itemMarginTop:40
     },
     tooltip: {
         shared: true
@@ -79,6 +81,7 @@ export class LinesituationComponent implements OnInit {
 
   this.optionsTotalGroup = {
     chart: {
+        renderTo: 'chart2',
         type: 'column'
     },
      credits: {
@@ -88,7 +91,7 @@ export class LinesituationComponent implements OnInit {
         text: rlc.Name,
         margin:10,
         style:{
-            fontSize: "12px"
+            fontSize: "16px"
         }
     },
     xAxis: {
@@ -106,7 +109,9 @@ export class LinesituationComponent implements OnInit {
     }],
     legend: {
         shadow: false,
-        verticalAlign : 'top'
+        verticalAlign : 'top',
+        itemMarginTop:40
+        
     },
     tooltip: {
         shared: true

@@ -75,6 +75,8 @@ export class RlcComponent implements OnInit, OnDestroy {
       .subscribe(message => {
         switch(message.action){
         case "Linesituation" :
+           let rlcmodel2 = new rlcModel();
+          this.rlcObject = rlcmodel2.rlcObject;
           this.gotoLineSituation(message.parameters.parameters);
           break;
           case "Linesituationdirect": 
